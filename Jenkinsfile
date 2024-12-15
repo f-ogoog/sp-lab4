@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git url: 'add here your url', credentialsId: 'add credentialsId'
+                git url: 'https://gitea.com/JohnTuwa/SP_Lab4.git', credentialsId: 'e13921d3-a2d8-4ba2-baec-a7eecfab5d93'
             }
         }
         
@@ -12,7 +12,7 @@ pipeline {
             steps {
                 // Крок для збірки проекту з Visual Studio
                 // Встановіть правильні шляхи до рішення/проекту та параметри MSBuild
-                bat '"path to MSBuild" test_repos.sln /t:Build /p:Configuration=Release'
+                bat '"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\MSBuild.exe" test_repos.sln /t:Build /p:Configuration=Release'
             }
         }
 
@@ -27,7 +27,8 @@ pipeline {
     post {
     always {
         // Publish test results using the junit step
-         // Specify the path to the XML test result files
+    
+        junit 'test_report.xml'
     }
 }
 }
